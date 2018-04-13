@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class PhotoBucketTableViewController: UITableViewController {
     var context = (UIApplication.shared.delegate as! AppDelegate)
@@ -26,72 +27,132 @@ class PhotoBucketTableViewController: UITableViewController {
                                                             target: self,
                                                             action: #selector(showAddDialog))
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updatePhotoArray()
+        tableView.reloadData()
+    }
+    
+    @objc func showAddDialog() {
+        let alertController = UIAlertController(title: "Create a new Weatherpic",
+                                                message: "",
+                                                preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Caption"
+        }
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Image URL (or blank)"
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel,
+                                         handler: nil)
+        
+        let createAction = UIAlertAction(title: "Create",
+                                              style: .default)
+        { (action) in
+            let captionTextField = alertController.textFields![0]
+            let imageUrlTextField = alertController.textFields![1]
+            
+            let newPhoto = Photo(context: self.context)
+            newPhoto.caption = captionTextField.text
+            newPhoto.imageUrl = (imageUrlTextField.text?.isEmpty)! ? self.getRandomImageUrl() : imageUrlTextField.text
+            newPhoto.created = Date()
+            self.save()
+            self.updatePhotoArray()
+            
+            if self.photos.count == 1 {
+                self.tableView.reloadData()
+                self.setEditing(false, animated: true)
+            } else {
+                self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+            }
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(createAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func getRandomImageUrl() -> String {
+        let testImages = ["https://upload.wikimedia.org/wikipedia/commons/0/04/Hurricane_Isabel_from_ISS.jpg",
+                          "https://upload.wikimedia.org/wikipedia/commons/0/00/Flood102405.JPG",
+                          "https://upload.wikimedia.org/wikipedia/commons/6/6b/Mount_Carmel_forest_fire14.jpg"]
+        let randomIndex = Int(arc4random_uniform(UInt32(testImages.count)))
+        return testImages[randomIndex];
+    }
+    
+    func save() {
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+    }
+    
+    func updatePhotoArray() {
+        let request: NSFetchRequest<Photo> = Photo.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
+        do {
+            photos = try context.fetch(request)
+        } catch {
+            fatalError("Unresolve Core Data error \(error)")
+        }
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        if photos.count == 0 {
+            super.setEditing(false, animated: animated)
+        } else {
+            super.setEditing(editing, animated: animated)
+        }
+    }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return max(photos.count, 1)
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        var cell: UITableViewCell
+        
+        if photos.count == 0 {
+            cell = tableView.dequeueReusableCell(withIdentifier: noPhotoCellIdentifier, for: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: photoCellIdentifier, for: indexPath)
+            cell.textLabel?.text = photos[indexPath.row].caption
+        }
+        
         return cell
     }
-    */
 
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        return photos.count > 0
     }
-    */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            context.delete(photos[indexPath.row])
+            save()
+            updatePhotoArray()
+            
+            if photos.count == 0 {
+                tableView.reloadData()
+            } else {
+                tableView.deleteRows(at: [indexPath], with: .fade)}
+        }
     }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == showDetailSegueIdentifier {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                (segue.destination as! PhotoBucketDetailViewController).photo = photos[indexPath.row]
+            }
+        }
     }
-    */
 
 }
