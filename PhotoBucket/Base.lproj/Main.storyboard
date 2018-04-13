@@ -78,7 +78,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uyj-3p-nei">
-                                <rect key="frame" x="186" y="525.33333333333337" width="42" height="21"/>
+                                <rect key="frame" x="186.33333333333334" y="525.33333333333337" width="41.666666666666657" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -89,14 +89,31 @@
                                     <constraint firstAttribute="width" secondItem="b4q-aH-kCP" secondAttribute="height" multiplier="4:3" id="tYX-11-KoJ"/>
                                 </constraints>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="j56-Cg-nAg" userLabel="spinner">
+                                <rect key="frame" x="0.0" y="390" width="414" height="20"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9oG-cq-ad5">
+                                        <rect key="frame" x="0.0" y="0.0" width="232" height="20"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading image..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drL-QH-8M1">
+                                        <rect key="frame" x="182" y="0.0" width="232" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="b4q-aH-kCP" firstAttribute="leading" secondItem="1WW-eU-imC" secondAttribute="leading" id="4TZ-5f-mlV"/>
+                            <constraint firstItem="1WW-eU-imC" firstAttribute="trailing" secondItem="j56-Cg-nAg" secondAttribute="trailing" id="6M6-ex-Zrb"/>
                             <constraint firstItem="b4q-aH-kCP" firstAttribute="centerY" secondItem="1WW-eU-imC" secondAttribute="centerY" constant="-50" id="H4d-Pk-yKJ"/>
                             <constraint firstItem="Uyj-3p-nei" firstAttribute="top" secondItem="b4q-aH-kCP" secondAttribute="bottom" constant="20" id="HTf-pk-XQ7"/>
                             <constraint firstItem="b4q-aH-kCP" firstAttribute="top" secondItem="1WW-eU-imC" secondAttribute="top" id="M0R-PA-AKE"/>
+                            <constraint firstItem="j56-Cg-nAg" firstAttribute="centerY" secondItem="1WW-eU-imC" secondAttribute="centerY" id="TNe-3v-Nmr"/>
                             <constraint firstItem="Uyj-3p-nei" firstAttribute="centerX" secondItem="1WW-eU-imC" secondAttribute="centerX" id="Wbp-T1-VQF"/>
+                            <constraint firstItem="j56-Cg-nAg" firstAttribute="centerX" secondItem="1WW-eU-imC" secondAttribute="centerX" id="alr-6K-2f9"/>
                             <constraint firstItem="b4q-aH-kCP" firstAttribute="trailing" secondItem="1WW-eU-imC" secondAttribute="trailing" id="dOF-yN-3cN"/>
                             <constraint firstItem="b4q-aH-kCP" firstAttribute="centerX" secondItem="1WW-eU-imC" secondAttribute="centerX" id="jVl-Ex-82x"/>
                             <constraint firstItem="1WW-eU-imC" firstAttribute="bottom" secondItem="b4q-aH-kCP" secondAttribute="bottom" constant="60" id="mck-ro-mBL"/>
@@ -130,6 +147,7 @@
                     <connections>
                         <outlet property="captionLabel" destination="Uyj-3p-nei" id="ByB-42-Ffy"/>
                         <outlet property="imageView" destination="b4q-aH-kCP" id="Voz-dU-bXa"/>
+                        <outlet property="spinnerStackView" destination="j56-Cg-nAg" id="KXD-8e-m49"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Xr-8d-tK5" userLabel="First Responder" sceneMemberID="firstResponder"/>

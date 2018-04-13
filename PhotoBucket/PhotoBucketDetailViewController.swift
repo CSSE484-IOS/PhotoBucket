@@ -12,6 +12,7 @@ class PhotoBucketDetailViewController: UIViewController {
 
     @IBOutlet weak var captionLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var spinnerStackView: UIStackView!
     
     var photo: Photo?
     
@@ -55,6 +56,7 @@ class PhotoBucketDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.captionLabel.text = self.photo?.caption
+        self.spinnerStackView.isHidden = false;
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -66,6 +68,7 @@ class PhotoBucketDetailViewController: UIViewController {
                         let data = try Data(contentsOf: imgUrl)
                         DispatchQueue.main.async { // Then update on main thread
                             self.imageView.image = UIImage(data: data)
+                            self.spinnerStackView.isHidden = true;
                         }
                     } catch {
                         print("Error downloading image: \(error)")
