@@ -7,12 +7,8 @@
 //
 
 import UIKit
-import CoreData
 
 class PhotoBucketTableViewController: UITableViewController {
-    var context = (UIApplication.shared.delegate as! AppDelegate)
-        .persistentContainer.viewContext
-    
     let photoCellIdentifier = "PhotoCell"
     let noPhotoCellIdentifier = "NoPhotoCell"
     let showDetailSegueIdentifier = "ShowDetailSegue"
@@ -60,7 +56,6 @@ class PhotoBucketTableViewController: UITableViewController {
             newPhoto.caption = captionTextField.text
             newPhoto.imageUrl = (imageUrlTextField.text?.isEmpty)! ? self.getRandomImageUrl() : imageUrlTextField.text
             newPhoto.created = Date()
-            self.save()
             self.updatePhotoArray()
             
             if self.photos.count == 1 {
@@ -82,10 +77,6 @@ class PhotoBucketTableViewController: UITableViewController {
                           "https://upload.wikimedia.org/wikipedia/commons/6/6b/Mount_Carmel_forest_fire14.jpg"]
         let randomIndex = Int(arc4random_uniform(UInt32(testImages.count)))
         return testImages[randomIndex];
-    }
-    
-    func save() {
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
     }
     
     func updatePhotoArray() {

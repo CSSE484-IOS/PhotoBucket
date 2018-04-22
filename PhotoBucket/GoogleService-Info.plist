@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>61368490715-a7ril6fho4rmmrk8hvokchj1m4c6ql9l.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.61368490715-a7ril6fho4rmmrk8hvokchj1m4c6ql9l</string>
+	<key>API_KEY</key>
+	<string>AIzaSyANF5sX_jd-4DqbauM5iMpWAjS_vNl23Jk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>61368490715</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.rosehulman.fengy2.PhotoBucket</string>
+	<key>PROJECT_ID</key>
+	<string>fengy2-photobucket</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fengy2-photobucket.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:61368490715:ios:21849c900954aba1</string>
+	<key>DATABASE_URL</key>
+	<string>https://fengy2-photobucket.firebaseio.com</string>
+</dict>
+</plist>

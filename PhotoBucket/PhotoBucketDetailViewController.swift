@@ -38,18 +38,17 @@ class PhotoBucketDetailViewController: UIViewController {
                                          style: .cancel,
                                          handler: nil)
         
-        let createAction = UIAlertAction(title: "Edit",
+        let editAction = UIAlertAction(title: "Edit",
                                          style: .default)
         { (action) in
             let captionTextField = alertController.textFields![0]
             self.photo?.caption = captionTextField.text!
             self.captionLabel.text = self.photo?.caption
             
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
         }
         
         alertController.addAction(cancelAction)
-        alertController.addAction(createAction)
+        alertController.addAction(editAction)
         present(alertController, animated: true, completion: nil)
     }
     
