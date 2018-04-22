@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Weatherpics-->
+        <!--Photo-->
         <scene sceneID="LVu-rD-css">
             <objects>
                 <tableViewController id="hlJ-Ab-IfV" customClass="PhotoBucketTableViewController" customModule="PhotoBucket" customModuleProvider="target" sceneMemberID="viewController">
@@ -63,7 +63,7 @@
                             <outlet property="delegate" destination="hlJ-Ab-IfV" id="Nla-fr-QpB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Weatherpics" id="NYA-an-dIA"/>
+                    <navigationItem key="navigationItem" title="Photo" id="NYA-an-dIA"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kwt-2e-NHo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

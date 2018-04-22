@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PhotoBucketDetailViewController: UIViewController {
 
@@ -15,7 +16,8 @@ class PhotoBucketDetailViewController: UIViewController {
     @IBOutlet weak var spinnerStackView: UIStackView!
     
     var photo: Photo?
-    
+    var photoRef: DocumentReference!
+    var photoListener: ListenerRegistration!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,7 @@ class PhotoBucketDetailViewController: UIViewController {
     }
 
     @objc func showEditDialog() {
-        let alertController = UIAlertController(title: "Edit this Weatherpic",
+        let alertController = UIAlertController(title: "Edit this Photo",
                                                 message: "",
                                                 preferredStyle: .alert)
         
@@ -43,8 +45,7 @@ class PhotoBucketDetailViewController: UIViewController {
         { (action) in
             let captionTextField = alertController.textFields![0]
             self.photo?.caption = captionTextField.text!
-            self.captionLabel.text = self.photo?.caption
-            
+            self.photoRef?.setData(self.photo!.data)
         }
         
         alertController.addAction(cancelAction)
@@ -54,8 +55,24 @@ class PhotoBucketDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.captionLabel.text = self.photo?.caption
         self.spinnerStackView.isHidden = false;
+        photoListener = photoRef?.addSnapshotListener({ (documentSnapshot, error) in
+            if let error = error {
+                print("Error getting the document: \(error.localizedDescription)")
+                return
+            }
+            if !documentSnapshot!.exists {
+                print("This document got deleted by someone else")
+                return
+            }
+            self.photo = Photo(documentSnapshot: documentSnapshot!)
+            self.captionLabel.text = self.photo?.caption
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        photoListener.remove()
     }
     
     override func viewDidAppear(_ animated: Bool) {
