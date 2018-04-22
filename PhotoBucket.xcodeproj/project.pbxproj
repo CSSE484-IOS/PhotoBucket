@@ -14,6 +14,7 @@
 		1B6859F7208138710041ECDF /* PhotoBucketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6859F6208138710041ECDF /* PhotoBucketTableViewController.swift */; };
 		1B6859F92081389C0041ECDF /* PhotoBucketDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6859F82081389C0041ECDF /* PhotoBucketDetailViewController.swift */; };
 		1B81FD00208CD75300C12059 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B81FCFF208CD75200C12059 /* GoogleService-Info.plist */; };
+		1B81FD02208CD9F800C12059 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B81FD01208CD9F800C12059 /* Photo.swift */; };
 		D4E7F682C070CCFCD4590261 /* Pods_PhotoBucket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7BA5052224B9E0E430724B8 /* Pods_PhotoBucket.framework */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		1B6859F6208138710041ECDF /* PhotoBucketTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBucketTableViewController.swift; sourceTree = "<group>"; };
 		1B6859F82081389C0041ECDF /* PhotoBucketDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBucketDetailViewController.swift; sourceTree = "<group>"; };
 		1B81FCFF208CD75200C12059 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1B81FD01208CD9F800C12059 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		A7BA5052224B9E0E430724B8 /* Pods_PhotoBucket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoBucket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACC1E3DC89191F46295B86E9 /* Pods-PhotoBucket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBucket.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBucket/Pods-PhotoBucket.debug.xcconfig"; sourceTree = "<group>"; };
 		C82D57E2F82F4D9174C32545 /* Pods-PhotoBucket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoBucket.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoBucket/Pods-PhotoBucket.release.xcconfig"; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				1B6859F02081335F0041ECDF /* Info.plist */,
 				1B6859F6208138710041ECDF /* PhotoBucketTableViewController.swift */,
 				1B6859F82081389C0041ECDF /* PhotoBucketDetailViewController.swift */,
+				1B81FD01208CD9F800C12059 /* Photo.swift */,
 			);
 			path = PhotoBucket;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B81FD02208CD9F800C12059 /* Photo.swift in Sources */,
 				1B6859F7208138710041ECDF /* PhotoBucketTableViewController.swift in Sources */,
 				1B6859F92081389C0041ECDF /* PhotoBucketDetailViewController.swift in Sources */,
 				1B6859E02081335D0041ECDF /* AppDelegate.swift in Sources */,
