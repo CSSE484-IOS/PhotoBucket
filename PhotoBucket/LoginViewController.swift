@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 import Rosefire
+import GoogleSignIn
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, GIDSignInUIDelegate {
     
     let ROSEFIRE_REGISTRY_TOKEN = "a498270b-df1a-4313-a0e2-dbaa14e76842"
     
@@ -25,7 +26,7 @@ class LoginViewController: UIViewController {
     
     func prepareRosefireLogin() {
         rosefireLoginButton.setTitle("Rosefire Login", for: .normal)
-        rosefireLoginButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: 13.0)
+        rosefireLoginButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: 15.0)
         rosefireLoginButton.setTitleColor(.white, for: .normal)
         rosefireLoginButton.backgroundColor = UIColor(red: 0.5, green: 0, blue: 0, alpha: 0.9)
     }

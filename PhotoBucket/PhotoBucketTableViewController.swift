@@ -19,22 +19,40 @@ class PhotoBucketTableViewController: UITableViewController {
     let noPhotoCellIdentifier = "NoPhotoCell"
     let showDetailSegueIdentifier = "ShowDetailSegue"
     var photos = [Photo]()
+    
+    var showingAllPhotos: Bool!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.leftBarButtonItem = self.editButtonItem
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Menu",
+                                                            style: .plain,
                                                             target: self,
-                                                            action: #selector(showAddDialog))
+                                                            action: #selector(showMenu))
         
         photosRef = Firestore.firestore().collection("photo")
         titleRef = Firestore.firestore().collection("title").document("myTitleID")
+        
+        showingAllPhotos = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        showAllPhotos()
+        titleRef.getDocument { (documentSnapshot, error) in
+            if let error = error {
+                print("Error fetching document.  \(error.localizedDescription)")
+                return
+            }
+            
+            if let title = documentSnapshot?.get("title") as? String {
+                self.navigationItem.title = title.isEmpty ? "PhotoBucket" : title
+            }
+        }
+    }
+    
+    func showAllPhotos() {
         photos.removeAll()
         photoListener = photosRef.order(by: "created", descending: true).limit(to: 20)
             .addSnapshotListener({ (querySnapshot, error) in
@@ -59,16 +77,6 @@ class PhotoBucketTableViewController: UITableViewController {
                 })
                 self.tableView.reloadData()
             })
-        titleRef.getDocument { (documentSnapshot, error) in
-            if let error = error {
-                print("Error fetching document.  \(error.localizedDescription)")
-                return
-            }
-            
-            if let title = documentSnapshot?.get("title") as? String {
-                self.navigationItem.title = title.isEmpty ? "PhotoBucket" : title
-            }
-        }
     }
     
     func photoAdded(_ document: DocumentSnapshot) {
@@ -98,7 +106,38 @@ class PhotoBucketTableViewController: UITableViewController {
         photoListener.remove()
     }
     
-    @objc func showAddDialog() {
+    @objc func showMenu() {
+        let actionController = UIAlertController(title: "Photo Bucket Options",
+                                                message: "",
+                                                preferredStyle: .actionSheet)
+        
+        actionController.addAction(UIAlertAction(title: "Add Photo",
+                                                 style: .default,
+                                                 handler: { (action) in
+                                                    self.showAddDialog()
+        }))
+        actionController.addAction(UIAlertAction(title: self.tableView.isEditing ? "Done Editing" : "Select Photos to Delete",
+                                                 style: .default,
+                                                 handler: { (action) in
+                                                    self.tableView.setEditing(!self.tableView.isEditing, animated: true)
+        }))
+        actionController.addAction(UIAlertAction(title: showingAllPhotos ? "Show Only My Photos" : "Show All Photos",
+                                                 style: .default,
+                                                 handler: { (action) in
+                                                    self.toggleShowPhotos()
+        }))
+        actionController.addAction(UIAlertAction(title: "Sign Out",
+                                                 style: .destructive,
+                                                 handler: { (action) in
+                                                    self.appDelegate.handleLogout()
+        }))
+        actionController.addAction(UIAlertAction(title: "Cancel",
+                                                 style: .cancel,
+                                                 handler: nil))
+        present(actionController, animated: true, completion: nil)
+    }
+    
+    func showAddDialog() {
         let alertController = UIAlertController(title: "Create a new Photo",
                                                 message: "",
                                                 preferredStyle: .alert)
@@ -145,6 +184,48 @@ class PhotoBucketTableViewController: UITableViewController {
             super.setEditing(editing, animated: animated)
         }
     }
+    
+    func toggleShowPhotos() {
+        if showingAllPhotos {
+            showMyPhotos()
+        } else {
+            showAllPhotos()
+        }
+        showingAllPhotos = !showingAllPhotos
+    }
+    
+    func showMyPhotos() {
+        photos.removeAll()
+        if let currentUser = Auth.auth().currentUser {
+            let myPhotosQuery = photosRef.whereField("uid", isEqualTo: currentUser.uid)
+            photoListener = myPhotosQuery.order(by: "created", descending: true).limit(to: 20)
+                .addSnapshotListener({ (querySnapshot, error) in
+                    guard let snapshot = querySnapshot else {
+                        print("Error fetching photos.  error: \(error!.localizedDescription)")
+                        return
+                    }
+                    snapshot.documentChanges.forEach({ (docChange) in
+                        if docChange.type == .added {
+                            print("New photo: \(docChange.document.data())")
+                            self.photoAdded(docChange.document)
+                        } else if docChange.type == .modified {
+                            print("Modified photo: \(docChange.document.data())")
+                            self.photoUpdated(docChange.document)
+                        } else if docChange.type == .removed {
+                            print("Removed photo: \(docChange.document.data())")
+                            self.photoRemoved(docChange.document)
+                        }
+                    })
+                    self.photos.sort(by: { (p1, p2) -> Bool in
+                        return p1.created > p2.created
+                    })
+                    self.tableView.reloadData()
+                })
+        } else {
+            print("Error identifying the current user")
+            return
+        }
+    }
 
     // MARK: - Table view data source
 
@@ -167,7 +248,7 @@ class PhotoBucketTableViewController: UITableViewController {
 
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return photos.count > 0
+        return photos.count > 0 && photos[indexPath.row].uid == Auth.auth().currentUser!.uid
     }
 
     // Override to support editing the table view.

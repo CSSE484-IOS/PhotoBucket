@@ -21,9 +21,6 @@ class PhotoBucketDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
-                                                            target: self,
-                                                            action: #selector(showEditDialog))
     }
 
     @objc func showEditDialog() {
@@ -67,6 +64,11 @@ class PhotoBucketDetailViewController: UIViewController {
             }
             self.photo = Photo(documentSnapshot: documentSnapshot!)
             self.captionLabel.text = self.photo?.caption
+            if self.photo?.uid == Auth.auth().currentUser?.uid {
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit,
+                                                                    target: self,
+                                                                    action: #selector(self.showEditDialog))
+            }
         })
     }
     
