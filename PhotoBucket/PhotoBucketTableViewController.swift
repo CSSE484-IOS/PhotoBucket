@@ -39,7 +39,12 @@ class PhotoBucketTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        showAllPhotos()
+        if showingAllPhotos {
+            showAllPhotos()
+        } else {
+            showMyPhotos()
+        }
+        
         titleRef.getDocument { (documentSnapshot, error) in
             if let error = error {
                 print("Error fetching document.  \(error.localizedDescription)")
