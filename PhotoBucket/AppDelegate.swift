@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func showPhotoTableViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "PhotoBucketTableViewController")
+        window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "NavigationController")
     }
 
 }

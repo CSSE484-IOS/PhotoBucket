@@ -22,7 +22,7 @@ class PhotoBucketTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,

@@ -14,7 +14,7 @@
         <!--Photo-->
         <scene sceneID="LVu-rD-css">
             <objects>
-                <tableViewController storyboardIdentifier="PhotoBucketTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hlJ-Ab-IfV" customClass="PhotoBucketTableViewController" customModule="PhotoBucket" sceneMemberID="viewController">
+                <tableViewController id="hlJ-Ab-IfV" customClass="PhotoBucketTableViewController" customModule="PhotoBucket" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XsP-aE-LNa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -181,6 +181,9 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="sKB-51-k2V"/>
                                 </constraints>
                                 <state key="normal" title="Rosefire Login"/>
+                                <connections>
+                                    <action selector="pressedRosefireLogin:" destination="OTK-ZH-TOA" eventType="touchUpInside" id="fg9-wA-cY9"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -195,6 +198,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jzj-Ej-zpn"/>
                     </view>
+                    <connections>
+                        <outlet property="googleLoginButton" destination="XKB-O9-pL4" id="N6C-ed-H3u"/>
+                        <outlet property="rosefireLoginButton" destination="gRz-Bn-Agc" id="LI9-P2-Stg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1bg-uj-N6A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -203,7 +210,7 @@
         <!--Navigation Controller-->
         <scene sceneID="t4y-Ja-Bhg">
             <objects>
-                <navigationController id="G4d-xq-j9J" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="G4d-xq-j9J" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HoT-I1-UEc">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
