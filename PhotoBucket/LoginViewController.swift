@@ -16,7 +16,7 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     let ROSEFIRE_REGISTRY_TOKEN = "a498270b-df1a-4313-a0e2-dbaa14e76842"
     
     @IBOutlet weak var rosefireLoginButton: UIButton!
-    @IBOutlet weak var googleLoginButton: UIView!
+    @IBOutlet weak var googleLoginButton: GIDSignInButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,8 @@ class LoginViewController: UIViewController, GIDSignInUIDelegate {
     }
     
     func prepareGoogleLogin() {
-        
+        GIDSignIn.sharedInstance().uiDelegate = self
+        googleLoginButton.style = .wide
     }
     
     // MARK: - Login Methods

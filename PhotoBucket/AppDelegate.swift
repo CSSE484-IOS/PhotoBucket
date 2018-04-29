@@ -14,7 +14,7 @@ import GoogleSignIn
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         FirebaseApp.configure()
@@ -44,9 +44,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             return
         }
         print("You are signed in using Google account: \(user.profile.email)")
-        //        guard let authentication = user.authentication else { return }
-        //        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-        //                                                       accessToken: authentication.accessToken)
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                                       accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: credential) { (user, error) in
+            if let error = error {
+                print("Error with Google Auth! Error: \(error.localizedDescription)")
+                return
+            }
+            self.handleLogin()
+        }
     }
     
     func handleLogin() {
@@ -71,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "NavigationController")
     }
-
+    
 }
 
 extension UIViewController {
