@@ -15,9 +15,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
         FirebaseApp.configure()
+        
+        if Auth.auth().currentUser == nil {
+            showLoginViewController();
+        } else {
+            showPhotoTableViewController();
+        }
+        window?.makeKeyAndVisible()
+        
         return true
     }
+    
+    func handleLogin() {
+        showPhotoTableViewController()
+    }
+    
+    @objc func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Error on sign out: \(error.localizedDescription)")
+        }
+        showLoginViewController()
+    }
+    
+    func showLoginViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+    }
+    
+    func showPhotoTableViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "PhotoBucketTableViewController")
+    }
 
+}
+
+extension UIViewController {
+    var appDelegate : AppDelegate {
+        get {
+            return UIApplication.shared.delegate as! AppDelegate
+        }
+    }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B2FD6062096167C00C9E12D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2FD6052096167C00C9E12D /* LoginViewController.swift */; };
 		1B6859E02081335D0041ECDF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6859DF2081335D0041ECDF /* AppDelegate.swift */; };
 		1B6859EA2081335D0041ECDF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B6859E82081335D0041ECDF /* Main.storyboard */; };
 		1B6859EC2081335F0041ECDF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B6859EB2081335F0041ECDF /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B2FD6052096167C00C9E12D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1B6859DC2081335D0041ECDF /* PhotoBucket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBucket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6859DF2081335D0041ECDF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B6859E92081335D0041ECDF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				1B6859F6208138710041ECDF /* PhotoBucketTableViewController.swift */,
 				1B6859F82081389C0041ECDF /* PhotoBucketDetailViewController.swift */,
 				1B81FD01208CD9F800C12059 /* Photo.swift */,
+				1B2FD6052096167C00C9E12D /* LoginViewController.swift */,
 			);
 			path = PhotoBucket;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				1B81FD02208CD9F800C12059 /* Photo.swift in Sources */,
 				1B6859F7208138710041ECDF /* PhotoBucketTableViewController.swift in Sources */,
 				1B6859F92081389C0041ECDF /* PhotoBucketDetailViewController.swift in Sources */,
+				1B2FD6062096167C00C9E12D /* LoginViewController.swift in Sources */,
 				1B6859E02081335D0041ECDF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,7 +406,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = PhotoBucket/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.rosehulman.fengy2.PhotoBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -418,7 +425,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 784G6DP2V5;
 				INFOPLIST_FILE = PhotoBucket/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = edu.rosehulman.fengy2.PhotoBucket;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
